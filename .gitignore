@@ -1,0 +1,6 @@
+.env
+config/local.php
+vendor/
+node_modules/
+public/uploads/*
+!public/uploads/.gitkeep

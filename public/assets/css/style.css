@@ -1,0 +1,341 @@
+/* =====================================================================
+   Vite & Gourmand : feuille de style (s'appuie sur Bootstrap 5.3)
+   ---------------------------------------------------------------------
+   Charte graphique
+   - Bordeaux  #7b1e3a : couleur principale (texte sur blanc : 10:1)
+   - Bordeaux foncé #5e162c : survols, fonds sombres
+   - Crème     #fff8f0 : fond des pages
+   - Or foncé  #8a6a12 : accents texte (5:1 sur blanc, AA)
+   - Or        #c9a24a : filets et éléments décoratifs uniquement (pas de texte)
+   - Encre     #2b2b2b : texte courant (13:1 sur crème)
+   - Focus     #0b57d0 : contour clavier
+   Typographies : piles système uniquement (aucune requête vers un
+   service tiers : RGPD, performance). Titres en Georgia (serif),
+   texte en sans-serif système.
+   Accessibilité (RGAA) : contrastes >= 4,5:1, focus visible,
+   prefers-reduced-motion respecté, cibles tactiles >= 44 px.
+   ===================================================================== */
+
+/* ---------- 1. Variables ---------- */
+:root {
+    --vg-bordeaux: #7b1e3a;
+    --vg-bordeaux-fonce: #5e162c;
+    --vg-bordeaux-nuit: #3d0d1c;
+    --vg-creme: #fff8f0;
+    --vg-creme-fonce: #f4e9dc;
+    --vg-or: #8a6a12;
+    --vg-or-clair: #c9a24a;
+    --vg-texte: #2b2b2b;
+    --vg-gris: #5c636a;
+    --vg-bordure: #eadfd3;
+    --vg-focus: #0b57d0;
+    --vg-blanc: #fff;
+
+    --vg-rayon: .75rem;
+    --vg-rayon-petit: .4rem;
+    --vg-ombre: 0 .25rem .75rem rgba(61, 13, 28, .08);
+    --vg-ombre-forte: 0 .6rem 1.4rem rgba(61, 13, 28, .16);
+
+    --vg-serif: Georgia, "Times New Roman", serif;
+    --vg-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* ---------- 2. Base et typographie ---------- */
+html { scroll-behavior: smooth; }
+
+body {
+    background: var(--vg-creme);
+    color: var(--vg-texte);
+    font-family: var(--vg-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+h1, h2, h3, h4, .navbar-brand { font-family: var(--vg-serif); line-height: 1.25; }
+h1, h2 { color: var(--vg-bordeaux); }
+h3, h4 { color: var(--vg-bordeaux-fonce); }
+h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 1.25rem; }
+
+main p, main li { max-width: 75ch; }          /* lignes lisibles (< 80 caractères) */
+main .row p, main .card p, main td p { max-width: none; }
+
+a { color: var(--vg-bordeaux); text-underline-offset: .2em; }
+a:hover { color: var(--vg-bordeaux-fonce); text-decoration-thickness: 2px; }
+
+.text-muted, .form-text { color: var(--vg-gris) !important; }
+small, .small { color: inherit; }
+
+/* ---------- 3. Accessibilité ---------- */
+:focus-visible {
+    outline: 3px solid var(--vg-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+.navbar :focus-visible, footer :focus-visible, .hero :focus-visible { outline-color: #fff; }
+
+.skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: #fff; color: var(--vg-bordeaux);
+    padding: .6rem 1.1rem; z-index: 1000;
+    font-weight: 600; border-radius: 0 0 var(--vg-rayon-petit) 0;
+}
+.skip-link:focus { left: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ---------- 4. Navigation ---------- */
+.bg-vg { background-color: var(--vg-bordeaux); }
+
+.navbar { border-bottom: 4px solid var(--vg-or-clair); padding-block: .6rem; }
+.navbar-brand { font-size: 1.5rem; font-weight: 700; letter-spacing: .01em; }
+
+.navbar-dark .navbar-nav .nav-link,
+.navbar-dark .btn-link.nav-link {
+    color: #fff;                         /* Bootstrap grise les liens : contraste insuffisant */
+    padding: .6rem .85rem;
+    min-height: 44px;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .btn-link.nav-link:hover { color: #fff; border-bottom-color: var(--vg-or-clair); }
+.navbar-dark .navbar-nav .nav-link.active,
+.navbar-dark .navbar-nav .nav-link[aria-current="page"] { color: #fff; font-weight: 700; border-bottom-color: #fff; }
+
+.navbar-dark .navbar-toggler { border: 2px solid #fff; padding: .4rem .6rem; }
+
+/* Sur mobile : menu déroulant bien séparé */
+@media (max-width: 991.98px) {
+    .navbar-collapse { padding-top: .75rem; margin-top: .5rem; border-top: 1px solid rgba(255, 255, 255, .3); }
+    .navbar-dark .navbar-nav .nav-link { border-bottom: 0; border-left: 3px solid transparent; }
+    .navbar-dark .navbar-nav .nav-link:hover { border-left-color: var(--vg-or-clair); }
+}
+
+/* Sous-navigation de l'espace employé / administrateur */
+.nav-pills .nav-link { color: var(--vg-bordeaux); border: 1px solid var(--vg-bordure); background: #fff; margin: 0 .35rem .5rem 0; min-height: 44px; display: inline-flex; align-items: center; }
+.nav-pills .nav-link:hover { background: var(--vg-creme-fonce); }
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link { background: var(--vg-bordeaux); color: #fff; border-color: var(--vg-bordeaux); }
+
+/* ---------- 5. Boutons et badges ---------- */
+.btn { border-radius: var(--vg-rayon-petit); font-weight: 600; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+.btn-sm { min-height: 36px; }
+.btn-lg { padding-inline: 1.6rem; }
+
+.btn-vg { background: var(--vg-bordeaux); border: 2px solid var(--vg-bordeaux); color: #fff; }
+.btn-vg:hover, .btn-vg:focus { background: var(--vg-bordeaux-fonce); border-color: var(--vg-bordeaux-fonce); color: #fff; }
+.btn-vg:active { background: var(--vg-bordeaux-nuit) !important; }
+
+.btn-outline-vg { border: 2px solid var(--vg-bordeaux); color: var(--vg-bordeaux); background: transparent; }
+.btn-outline-vg:hover { background: var(--vg-bordeaux); color: #fff; }
+
+.btn-clair { background: #fff; color: var(--vg-bordeaux); border: 2px solid #fff; }
+.btn-clair:hover { background: var(--vg-creme); color: var(--vg-bordeaux-fonce); border-color: var(--vg-creme); }
+
+.btn-contour-clair { border: 2px solid #fff; color: #fff; background: transparent; }
+.btn-contour-clair:hover { background: #fff; color: var(--vg-bordeaux); }
+
+.btn-outline-secondary { color: var(--vg-gris); border-color: var(--vg-gris); }
+.btn-outline-secondary:hover { background: var(--vg-gris); color: #fff; }
+.btn-outline-danger { color: #a4161a; border-color: #a4161a; }
+.btn-outline-danger:hover { background: #a4161a; color: #fff; }
+
+.btn-link.nav-link { text-decoration: none; }
+
+.badge { font-weight: 600; padding: .4em .7em; border-radius: 2rem; }
+.badge-vg { background: var(--vg-bordeaux); color: #fff; }
+.badge-vg-outline { background: #fff; color: var(--vg-bordeaux); border: 1px solid var(--vg-bordeaux); }
+.badge.bg-secondary { background: var(--vg-bordeaux) !important; color: #fff; }   /* page détail d'un menu */
+
+/* ---------- 6. Page d'accueil ---------- */
+.hero {
+    position: relative;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(201, 162, 74, .28), transparent 45%),
+        linear-gradient(135deg, var(--vg-bordeaux) 0%, var(--vg-bordeaux-nuit) 100%);
+    color: #fff;
+    border-radius: 1rem;
+    padding: clamp(2.5rem, 7vw, 5rem) 1.5rem;
+    text-align: center;
+    box-shadow: var(--vg-ombre-forte);
+    overflow: hidden;
+}
+.hero::after {                           /* filet doré décoratif */
+    content: ""; position: absolute; left: 50%; bottom: 0;
+    width: 120px; height: 4px; transform: translateX(-50%);
+    background: var(--vg-or-clair);
+}
+.hero h1 { color: #fff; font-size: clamp(2.2rem, 6vw, 3.6rem); letter-spacing: .01em; margin-bottom: .5rem; }
+.hero .lead { max-width: 40rem; margin: 1rem auto 1.75rem; font-size: clamp(1.05rem, 2.2vw, 1.25rem); }
+
+.titre-section { text-align: center; margin: 3.5rem 0 1.75rem; }
+.titre-section::after {
+    content: ""; display: block; width: 60px; height: 3px;
+    background: var(--vg-or-clair); margin: .7rem auto 0; border-radius: 2px;
+}
+
+.valeur { text-align: center; padding: 1.75rem 1.5rem; height: 100%; background: #fff; box-shadow: var(--vg-ombre); }
+.valeur .pastille {
+    display: inline-flex; width: 3.2rem; height: 3.2rem; border-radius: 50%;
+    background: var(--vg-bordeaux); color: #fff; align-items: center; justify-content: center;
+    font-weight: 700; font-family: var(--vg-serif); font-size: 1.25rem; margin-bottom: .9rem;
+    box-shadow: 0 0 0 4px var(--vg-creme), 0 0 0 6px var(--vg-or-clair);
+}
+
+.chiffre-cle { font-family: var(--vg-serif); font-size: clamp(2.5rem, 6vw, 3.5rem); color: var(--vg-or); font-weight: 700; line-height: 1; }
+
+/* Avis clients */
+.avis-etoiles { color: var(--vg-or); font-size: 1.25rem; letter-spacing: .12em; }
+figure.card { background: #fff; box-shadow: var(--vg-ombre); position: relative; }
+figure.card blockquote { font-family: var(--vg-serif); font-style: italic; font-size: 1.05rem; }
+figure.card figcaption { font-size: .95rem; }
+blockquote { margin: 0; }
+
+/* ---------- 7. Cartes (menus) ---------- */
+.card { border: 1px solid var(--vg-bordure); border-radius: var(--vg-rayon); overflow: hidden; background: #fff; }
+.card-menu { transition: transform .15s ease, box-shadow .15s ease; box-shadow: var(--vg-ombre); }
+.card-menu:hover { transform: translateY(-3px); box-shadow: var(--vg-ombre-forte); }
+.card-menu .card-img-top { height: 210px; object-fit: cover; background: var(--vg-creme-fonce); }
+.card-menu .card-title { color: var(--vg-bordeaux); font-family: var(--vg-serif); font-size: 1.3rem; }
+.card-menu .card-text { color: var(--vg-texte); }
+.prix { font-weight: 700; color: var(--vg-bordeaux); font-size: 1.05rem; }
+
+/* ---------- 8. Liste des menus et filtres ---------- */
+#filtres {
+    background: #fff;
+    border: 1px solid var(--vg-bordure);
+    border-left: 5px solid var(--vg-or-clair);
+    border-radius: var(--vg-rayon);
+    padding: 1.25rem 1rem 1.5rem;
+    margin-inline: 0;
+    box-shadow: var(--vg-ombre);
+}
+#statut { min-height: 1.6rem; font-weight: 600; }
+#liste-menus .card-menu { height: 100%; }
+
+/* ---------- 9. Détail d'un menu ---------- */
+main nav[aria-label="Fil d'Ariane"] a { font-weight: 600; text-decoration: none; }
+main nav[aria-label="Fil d'Ariane"] a:hover { text-decoration: underline; }
+
+main img.img-fluid.rounded { border-radius: var(--vg-rayon) !important; box-shadow: var(--vg-ombre); aspect-ratio: 4 / 3; object-fit: cover; width: 100%; background: var(--vg-creme-fonce); }
+
+/* Conditions du menu : doivent être impossibles à rater */
+.alert-warning[role="note"] {
+    background: #fff4cc;
+    color: #4d3b00;
+    border: 2px solid #b58900 !important;
+    border-left-width: 8px !important;
+    border-radius: var(--vg-rayon);
+}
+.alert-warning[role="note"] h2 { color: #4d3b00; font-size: 1.2rem; margin-bottom: .5rem; }
+.alert-warning[role="note"] h2::before { content: "\26A0\FE0F\00a0"; }
+
+/* Composition du menu */
+main h3.h5 { margin-top: 1.5rem; padding-bottom: .3rem; border-bottom: 2px solid var(--vg-or-clair); display: inline-block; }
+main ul li small { color: var(--vg-gris); }
+
+/* ---------- 10. Formulaires ---------- */
+.form-label { font-weight: 600; margin-bottom: .3rem; }
+.form-control, .form-select {
+    border: 1px solid #8c8c8c;           /* contraste >= 3:1 avec le fond (RGAA 3.3) */
+    border-radius: var(--vg-rayon-petit);
+    min-height: 44px;
+    background-color: #fff;
+}
+textarea.form-control { min-height: 8rem; }
+.form-control:focus, .form-select:focus {
+    border-color: var(--vg-bordeaux);
+    box-shadow: 0 0 0 .2rem rgba(11, 87, 208, .35);
+}
+.form-check-input { width: 1.3em; height: 1.3em; border: 2px solid #6b6b6b; }
+.form-check-input:checked { background-color: var(--vg-bordeaux); border-color: var(--vg-bordeaux); }
+.form-check-input:focus { box-shadow: 0 0 0 .2rem rgba(11, 87, 208, .35); border-color: var(--vg-focus); }
+.form-check-label { padding-left: .15rem; }
+
+fieldset { border: 1px solid var(--vg-bordure); border-radius: var(--vg-rayon); padding: 1rem 1.25rem; background: #fff; }
+legend.h5, legend.h6, legend { color: var(--vg-bordeaux); font-family: var(--vg-serif); float: none; width: auto; padding-inline: .5rem; }
+
+.was-validated .form-control:invalid, .form-control.is-invalid { border-color: #a4161a; }
+.invalid-feedback { color: #a4161a; font-weight: 600; }
+
+/* Formulaires de connexion, inscription, contact : colonne centrée et lisible */
+main form[action*="connexion"], main form[action*="inscription"],
+main form[action*="contact"], main form[action*="reinitialisation"],
+main form[action*="mot-de-passe"] { max-width: 36rem; }
+
+/* ---------- 11. Commande, espace utilisateur, suivi ---------- */
+.list-group { border-radius: var(--vg-rayon); box-shadow: var(--vg-ombre); }
+.list-group-item { border-color: var(--vg-bordure); padding: .85rem 1.1rem; }
+.list-group-item.active { background: var(--vg-bordeaux); border-color: var(--vg-bordeaux); }
+
+/* Suivi de commande : liste d'états avec date et heure */
+.suivi, .list-group.suivi { position: relative; }
+.suivi .list-group-item:first-child { border-left: 5px solid var(--vg-or-clair); font-weight: 600; }
+
+/* Récapitulatif de prix avant validation */
+#recap, .recap-prix {
+    background: #fff; border: 1px solid var(--vg-bordure); border-radius: var(--vg-rayon);
+    padding: 1.25rem; box-shadow: var(--vg-ombre);
+}
+#recap dt, .recap-prix dt { font-weight: 600; }
+#recap dd, .recap-prix dd { margin-bottom: .5rem; text-align: right; }
+#recap .total, .recap-prix .total { font-family: var(--vg-serif); font-size: 1.5rem; color: var(--vg-bordeaux); border-top: 2px solid var(--vg-or-clair); padding-top: .6rem; }
+
+/* ---------- 12. Tableaux (employé, administrateur) ---------- */
+.table-responsive { border: 1px solid var(--vg-bordure); border-radius: var(--vg-rayon); background: #fff; box-shadow: var(--vg-ombre); }
+.table { --bs-table-bg: transparent; margin-bottom: 0; color: var(--vg-texte); }
+.table > thead { background: var(--vg-bordeaux); color: #fff; }
+.table > thead th { font-weight: 600; border-bottom: 0; white-space: nowrap; }
+.table > tbody > tr:nth-of-type(even) > * { background: var(--vg-creme); }
+.table > tbody > tr:hover > * { background: var(--vg-creme-fonce); }
+.table th, .table td { padding: .8rem 1rem; vertical-align: middle; }
+table.table:not(.table-responsive table) { background: #fff; border-radius: var(--vg-rayon); overflow: hidden; }
+
+/* Graphiques de l'espace administrateur */
+canvas[role="img"] {
+    width: 100% !important; max-height: 340px; background: #fff;
+    border: 1px solid var(--vg-bordure); border-radius: var(--vg-rayon);
+    padding: .75rem; box-shadow: var(--vg-ombre);
+}
+
+/* ---------- 13. Messages (alertes) ---------- */
+.alert { border-radius: var(--vg-rayon); border-width: 1px; border-left-width: 6px; font-weight: 500; }
+.alert-success { background: #e6f4ea; color: #134d24; border-color: #2e7d32; }
+.alert-danger  { background: #fdeaea; color: #7a1014; border-color: #a4161a; }
+.alert-info    { background: #e7f1fb; color: #0b3a6b; border-color: #0b57d0; }
+.alert-warning { background: #fff4cc; color: #4d3b00; border-color: #b58900; }
+.alert-secondary { background: var(--vg-creme-fonce); color: var(--vg-texte); border-color: var(--vg-gris); }
+.alert a { color: inherit; font-weight: 700; }
+
+/* ---------- 14. Pied de page ---------- */
+footer.bg-vg { border-top: 4px solid var(--vg-or-clair); }
+footer h2 { color: #fff; font-size: 1.15rem; margin-bottom: .6rem; }
+footer ul li { padding-block: .1rem; }
+footer a { color: #fff; text-decoration: underline; }
+footer a:hover { color: #fff; text-decoration: none; }
+
+/* ---------- 15. Responsive ---------- */
+@media (max-width: 767.98px) {
+    main { padding-inline: 1rem; }
+    .titre-section { margin: 2.5rem 0 1.25rem; }
+    #filtres { padding: 1rem .75rem 1.25rem; }
+    .card-menu .card-img-top { height: 180px; }
+    .table > :not(caption) > * > * { padding: .6rem .7rem; }
+}
+
+@media (max-width: 575.98px) {
+    .hero { padding: 2.5rem 1rem; border-radius: .75rem; }
+    .btn-lg { width: 100%; }
+    .navbar-brand { font-size: 1.25rem; }
+}
+
+/* ---------- 16. Impression ---------- */
+@media print {
+    .navbar, footer, .skip-link, #filtres, .btn { display: none !important; }
+    body { background: #fff; color: #000; }
+    a { color: #000; text-decoration: underline; }
+    .card, .table-responsive { box-shadow: none; border-color: #999; }
+}

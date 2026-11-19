@@ -1,0 +1,9 @@
+{
+    "name": "fastdev/vite-gourmand",
+    "description": "Application web Vite & Gourmand (ECF Studi)",
+    "require": {
+        "php": ">=8.1",
+        "ext-mongodb": "*",
+        "mongodb/mongodb": "^1.17"
+    }
+}
