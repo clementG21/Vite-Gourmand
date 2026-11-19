@@ -5,7 +5,7 @@ declare(strict_types=1);
 function config(): array
 {
     static $c = null;
-    return $c ??= require __DIR__ . '\..\config\config.php';
+    return $c ??= require __DIR__ . '/../config/config.php';
 }
 
 // Connexion PDO unique. Requêtes préparées partout => protection contre les injections SQL.
